@@ -8,10 +8,14 @@ Tasks:
 **1. What is the full link of a social media post which is part of the malware campaign, and was unknowingly opened by Alonzo spire?**
 
 First, I analyzed kape file like this 
+
 ![Pasted image 20260915183606.png](images/Pasted%20image%2020260915183606.png)
 
+
 we know that Alonzo saw a social media post and downloaded file from it and installed it. So we need to focus on web browsing, especially browsing history. 
+
 ![Pasted image 20260915183812.png](images/Pasted%20image%2020260915183812.png)
+
 
 here I got default browsing history of Alonzo in last column, three samples above are old ones and can be useful if history is deleted or changed
 I ran sqlite3 command to obtain URLs from main history 
@@ -41,7 +45,9 @@ sqlite3 -header -column \
 "./Users/alonzo.spire/AppData/Local/Microsoft/Edge/User Data/Default/History" \
 "SELECT datetime(visit_time/1000000 - 11644473600, 'unixepoch') AS UTC, visit_time FROM visits WHERE url = 21 ORDER BY visit_time;"
 ```
+
 ![Pasted image 20260915185021.png](images/Pasted%20image%2020260915185021.png)
+
 
 
 > 🟩 **Answer:** 2024-03-19 04:30:00
@@ -53,7 +59,9 @@ sqlite3 -header -column \
 
 I went to DB Browser SQLite and import history file
 Then I went to browser data and set Table filter to downloads and got something like this
+
 ![Pasted image 20260915215631.png](images/Pasted%20image%2020260915215631.png)
+
 
 in question it mentions AI Asisstant tool, we can see that file on the right side where Alonzo downloaded it
 
@@ -79,6 +87,7 @@ ON d.id = duc.id;
 to find all urls for all downloads
 
 ![Pasted image 20260915222005.png](images/Pasted%20image%2020260915222005.png)
+
 
 The answer is clear from this output.
 
@@ -127,7 +136,9 @@ Now we can finally get the actual product version by printing the event from the
 
 
 **6. When was the malicious product/package successfully installed on the system?**
+
 ![Pasted image 20260916001646.png](images/Pasted%20image%2020260916001646.png)
+
 
 
 > 🟩 **Answer:** 2024-03-19 04:31:33
@@ -144,7 +155,9 @@ Then we apply a time filter to select only events with FileName creation timesta
 After sorting the entries in ascending order, we can see right away that there are a
 bunch of files that are located under the C:\Program Files (x86)\Google\Install
 folder.
+
 ![Pasted image 20260916004806.png](images/Pasted%20image%2020260916004806.png)
+
 
 
 > 🟩 **Answer:** C:\Program Files (x86)\Google
@@ -153,7 +166,9 @@ folder.
 
 
 **8. The malware executed a command from a file. What is name of this file?**
+
 ![Pasted image 20260916205525.png](images/Pasted%20image%2020260916205525.png)
+
 
 I opened $MFT csv file in Timeline Explorer and found few suspicious file names. install.cmd seems like the right one
 
@@ -166,7 +181,9 @@ I opened $MFT csv file in Timeline Explorer and found few suspicious file names.
 
 Remove whitespace to avoid format issues.
 We can confirm our previous assumption by looking at the contents of install.cmd using MFTECmd. From the Timeline Explorer we noted the Entry Number (51471) and the Sequence Number (4) for install.cmd , then we execute: .\MFTECmd.exe -f 'C:\Users\Marin\Desktop\Triage\C\$MFT' --de 51471-4
+
 ![Pasted image 20260916212745.png](images/Pasted%20image%2020260916212745.png)
+
 
 
 > 🟩 **Answer:** @echooffpowershellExecutionPolicyBypassFile"%~dp0nmmhkkegccagdldgiimedpic/ru.ps1"
@@ -187,7 +204,9 @@ I executed this command and obtained an answer
 
 **11. Under malware staging Directory, a js file resides which is very small in size.What is the hex offset for this file on the filesystem?**
 In Timeline Explorer I saw content.js file in same directory, I obtained it Entry Number and filter it with MFTECmd.exe
+
 ![Pasted image 20260916215436.png](images/Pasted%20image%2020260916215436.png)
+
 
 
 > 🟩 **Answer:** 3E90C00
@@ -205,7 +224,9 @@ Answer can be obtained from output from last command from previous answer
 
 **13. Upon seeing no AI Assistant app being run, alonzo tried searching it from file explorer. What keywords did he use to search?**
 I opened NTUSER.DAT file in **Registry Explorer** and search for WordWheelQuery hive. There I found the answer
+
 ![Pasted image 20260916220903.png](images/Pasted%20image%2020260916220903.png)
+
 
 
 > 🟩 **Answer:** Google Ai Gemini tool
@@ -223,7 +244,9 @@ It is shown in previous answer
 
 **15. After alonzo could not find any AI tool on the system, he became suspicious, contacted the security team and deleted the downloaded file. When was the file deleted by alonzo?**
 Since we know original file was .rar extension. I loaded csv file of $MFT and filter results by .rar and found an answer
+
 ![Pasted image 20260916223509.png](images/Pasted%20image%2020260916223509.png)
+
 
 
 > 🟩 **Answer:** 2024-03-19 04:34:16
@@ -232,7 +255,9 @@ Since we know original file was .rar extension. I loaded csv file of $MFT and fi
 
 
 16. Looking back at the starting point of this infection, please find the md5 hash of the malicious installer.
+
 ![Pasted image 20260916225843.png](images/Pasted%20image%2020260916225843.png)
+
 
 
 > 🟩 **Answer:** BF17D7F8DAC7DF58B37582CEC39E609D
