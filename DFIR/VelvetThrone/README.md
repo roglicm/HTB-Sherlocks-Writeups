@@ -51,9 +51,7 @@ jq -r '.[] | select(
 sort > kyle_okta_timeline.txt
 ```
 output:
-
 ![Pasted image 20260926190655.png](images/Pasted%20image%2020260926190655.png)
-
 
 
 > 🟩 **Answer:** 45.33.32.156
@@ -63,7 +61,6 @@ output:
 While doing answer 6. I found answer for question 3.
 
 ![Pasted image 20260927180921.png](images/Pasted%20image%2020260927180921.png)
-
 
 This event ID is 4967 what determines installing new service, we can conclude an answer
 
@@ -75,11 +72,8 @@ This event ID is 4967 what determines installing new service, we can conclude an
 
 ![Pasted image 20260926170753.png](images/Pasted%20image%2020260926170753.png)
 
-
 In pentest_report_json.log I found **MITRE ATT&CK** technique (T1573.001) that usually uses algorithms AES, DES, 3DES, Blowfish, and **RC4**, since in next line we can see that pentesters used **RC4** algorithm we can say that its high probability that attackers will use the same. To be sure I ran this command:
-
 ![Pasted image 20260926174630.png](images/Pasted%20image%2020260926174630.png)
-
 
 There we can clearly see that rc4 is used as algorithm 
 
@@ -94,9 +88,7 @@ I checked sysmon events, windows security and defender alert logs with this comm
 ```
 grep -Ein -C 10 "wmic|logicaldisk|volumeserialnumber|deviceid|GetComputerName|hostname" \
 ```
-
 ![Pasted image 20260926180340.png](images/Pasted%20image%2020260926180340.png)
-
 
 
 > 🟩 **Answer:** proxy-health-api.azurecloud-monitor.com
@@ -106,14 +98,10 @@ grep -Ein -C 10 "wmic|logicaldisk|volumeserialnumber|deviceid|GetComputerName|ho
 
 
 (MITRE ATT&CK TECHNIQUE ID)
-
 ![Pasted image 20260926183546.png](images/Pasted%20image%2020260926183546.png)
 
-
 This event ID is 4967 which means installing new service, probably for malware execution
-
 ![Pasted image 20260926183758.png](images/Pasted%20image%2020260926183758.png)
-
 
 
 > 🟩 **Answer:** T1543.003
@@ -123,9 +111,7 @@ This event ID is 4967 which means installing new service, probably for malware e
 
 **7. Which legitimate Microsoft tool did the attacker abuse to dump the **LSASS** process memory for credential theft?**
 I used this command to filter out possible tools used by attacker 
-
 ![Pasted image 20260926181917.png](images/Pasted%20image%2020260926181917.png)
-
 
 from output we can see "CommandLine":"**ProcDump**.exe -ma lsass.exe C:\\Windows\\Temp\\lsass.dmp" which confirms that **ProcDump** tool was used to run lsass process
 
@@ -139,9 +125,7 @@ from output we can see "CommandLine":"**ProcDump**.exe -ma lsass.exe C:\\Windows
 
 (username only)
 Since we know from scenario that attacker after lsass dumping use SharePoint service, also from output we can se that svc_sharepoint_farm is in 3 different logs (Windows security log, Azure AD log and over 300 events in sharepoint audit log) and name fits SharePoint service acc, we can conclude an answer
-
 ![Pasted image 20260926182713.png](images/Pasted%20image%2020260926182713.png)
-
 
 
 > 🟩 **Answer:** svc_sharepoint_farm
@@ -151,9 +135,7 @@ Since we know from scenario that attacker after lsass dumping use SharePoint ser
 
 **9. What is the NetBIOS hostname of the initially compromised machine?**
 Since I know filename of backdoor, I filter windows security and sysmon logs with it
-
 ![Pasted image 20260926184300.png](images/Pasted%20image%2020260926184300.png)
-
 
 
 > 🟩 **Answer:** EXEC-WKSTN-01
@@ -177,9 +159,7 @@ jq -c '.[] | select(
 )' sysmon_events.json > volume_serial_hits.json
 ```
 then we list the results
-
 ![Pasted image 20260926191341.png](images/Pasted%20image%2020260926191341.png)
-
 
 
 > 🟩 **Answer:** 4B7A2C9E
@@ -189,9 +169,7 @@ then we list the results
 
 **11. What internal IP address did the attacker pivot to after obtaining the SharePoint service account credentials?**
 This output was obtained while doing task 14
-
 ![Pasted image 20260926193508.png](images/Pasted%20image%2020260926193508.png)
-
 
 
 > 🟩 **Answer:** 10.10.20.30
@@ -201,9 +179,7 @@ This output was obtained while doing task 14
 
 **12. Decrypt the captured C2 beacon (c2_session_capture.bin) using the derived RC4 key. What command was issued to the implant?**
 Since static strings do not provide a separator/formula, I made small script in AI that automatically tests real combinations: hostname + serial, serial + hostname, with/without separator and with different casing
-
 ![Pasted image 20260926192119.png](images/Pasted%20image%2020260926192119.png)
-
 
 We know we are on right path because in sherlock scenario it says that attacker exfiltrated about 25GB of data, from this output we can see same amount (24999591936 bytes)
 
@@ -214,9 +190,7 @@ We know we are on right path because in sherlock scenario it says that attacker 
 
 **13. What is the filename of the archive created to stage the exfiltrated data?**
 from same output like in previous question:
-
 ![Pasted image 20260926192305.png](images/Pasted%20image%2020260926192305.png)
-
 
 
 > 🟩 **Answer:** axiom_q1_portfolio.7z
@@ -227,7 +201,6 @@ from same output like in previous question:
 **14. What is the full domain name the attacker used as the exfiltration endpoint to upload the staged archive?**
 
 ![Pasted image 20260926193109.png](images/Pasted%20image%2020260926193109.png)
-
 
 
 > 🟩 **Answer:** blob-sync-backup.s3-azure-cdn.com
@@ -255,14 +228,10 @@ then I ran
 cat azurecloud_dns.txt
 ```
 most important part of output:
-
 ![Pasted image 20260926194618.png](images/Pasted%20image%2020260926194618.png)
 
-
 first column is DNS fragment which can be decoded using XOR key like this:
-
 ![Pasted image 20260926195007.png](images/Pasted%20image%2020260926195007.png)
-
 
 we can also use XOR Calculator or python
 
