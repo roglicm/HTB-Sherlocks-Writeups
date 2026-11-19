@@ -6,6 +6,7 @@ Tasks:
 
 
 **1. When was the Windows Data Deduplication feature first installed on the system?**
+
 I was given zip file that I extracted. After that I was provided with another .ad1 file that I analyzed and saw it is "ADSEGMENTEDFILE" which confirms that file is .ad1.
 
 ![Pasted image 20261110184023.png](images/Pasted%20image%2020261110184023.png)
