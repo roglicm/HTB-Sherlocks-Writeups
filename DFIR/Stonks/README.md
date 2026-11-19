@@ -48,6 +48,7 @@ We can see in "Map Description" column that this event is the moment where dedup
 
 
 **2. How many bytes of disk space were saved after the first optimization job was completed by Data Deduplication?**
+
 In Timeline Explorer I search for saved space keyword and showed results by time ascending. 
 
 ![Pasted image 20261111032734.png](images/Pasted%20image%2020261111032734.png)
@@ -61,6 +62,7 @@ First one event occured after deduplication feature was installed on system, sin
 
 
 **3. When was Data Deduplication most recently re-enabled on volume D:?**
+
  For this question, I need to read data from sys vol info. 
 
 ![Pasted image 20261112191346.png](images/Pasted%20image%2020261112191346.png)
@@ -74,7 +76,8 @@ Since timestamps in these xml files are in windows epoch format. By using conver
 
 
 
-4. List all file extensions that are not optimized by Data Deduplication in alphabetical order.
+**4. List all file extensions that are not optimized by Data Deduplication in alphabetical order.**
+
 In same "dedupConfig.02.xml" file there are 2 fields "excludeFileExtensions" and "excludeFileExtensionsDefault". By collecting extensions from those 2 fields and putting it in alphabetical order we can get an answer.
 
 ![Pasted image 20261113171840.png](images/Pasted%20image%2020261113171840.png)
@@ -84,6 +87,7 @@ In same "dedupConfig.02.xml" file there are 2 fields "excludeFileExtensions" and
 
 
 **5. How many files have been optimized by Data Deduplication?**
+
 In "System Volume Information/State" folder there is file called "dedupStatistics.xml". By examining it, answer can be found under "optimizedFileCount" field.
 
 ![Pasted image 20261113180232.png](images/Pasted%20image%2020261113180232.png)
@@ -93,6 +97,7 @@ In "System Volume Information/State" folder there is file called "dedupStatistic
 
 
 **6. When is the next Throughput Optimisation job scheduled to run?**
+
 For this question I need "C:\Windows\System32\Tasks\Microsoft\Windows\Deduplication" folder to examine throughput optimization xml file. I exported all files from "Deduplication" folder for easier analyzing.
 
 ![Pasted image 20261114160202.png](images/Pasted%20image%2020261114160202.png)
@@ -111,6 +116,7 @@ There are few important fields that explains how scheduled job is being executed
 
 
 **7. What is the name of the financial report that was recently deleted in an attempt to cover up criminal activity?**
+
 In "root\Finance\Reports\Annual\2024" folder there is one deleted file which confirms "X" mark over it. 
 
 ![Pasted image 20261114163851.png](images/Pasted%20image%2020261114163851.png)
@@ -124,6 +130,7 @@ I opened USN Journal $J csv file in Timeline Explorer to confirm this.
 
 
 **8. What is the MFT entry number of that report file?**
+
 I searched in csv $MFT file for keyword "Internal Consolidated Financial Statements 2024.docx" and found an answer.
 
 ![Pasted image 20261114223719.png](images/Pasted%20image%2020261114223719.png)
@@ -132,7 +139,8 @@ I searched in csv $MFT file for keyword "Internal Consolidated Financial Stateme
 
 
 
-9. List all the FILE_ATTRIBUTE flags that are set on the report file. Submit answer in ascending order based on the hex value of each flag.
+**9. List all the FILE_ATTRIBUTE flags that are set on the report file. Submit answer in ascending order based on the hex value of each flag.**
+
 For this question I need combining entry number, raw $MFT file and MFTECmdx.exe with "--de". Since exporting 2 disk partitions from FTK Imager was not successful, because I obtain these 2 folders without any subfolders, they are empty.
 
 ![Pasted image 20261118113552.png](images/Pasted%20image%2020261118113552.png)
@@ -152,9 +160,9 @@ I obtain 3 flags Archive, SparseFile and ReparsePoint. Their hexadecimal values 
 
 
 
-10. At what offset in the $MFT file does the $REPARSE_POINT attribute of the report begin?
+**10. At what offset in the $MFT file does the $REPARSE_POINT attribute of the report begin?
+(Answer as an 8-digit hexadecimal offset, prefixed with 0x).**
 
-(Answer as an 8-digit hexadecimal offset, prefixed with 0x).
 For this question I tried extracting raw $MFT (to import it in HxD) from disk partition 3 but unfortunately wasn't able to to it. It is possible to calculate it from output from previous question.
 
 ![Pasted image 20261118122056.png](images/Pasted%20image%2020261118122056.png)
@@ -173,6 +181,7 @@ So size of standard info, file name and data is '1B0' in hex value. Now it is ne
 
 
 **11. After the report was optimized by Data Deduplication, into how many chunks was its data divided?**
+
 For this question I need to use DedupInspector. I already built in past DedupExplorer.exe through Visual Studio. Dedup Explorer requires raw $MFT file, stream file and chunk file for full recovery of original files and scanning.
 I obtain raw $MFT like this.
 
@@ -200,6 +209,7 @@ After scanning, our file can be seen at the top of the list. Answer can be found
 
 
 **12. What is the data length in bytes of the first deduplicated chunk belonging to the report file under investigation?**
+
 For this question I need to open .ccc file from 'chunkstore_stream' folder into HxD and calculate bytes for first chunk. Since exported .ccc file in 'chunkstore_stream' contains data about every deduplicated chunk I need to identify its stream-header first. I opened raw $MFT in HxD and search for 'B9B0' offset beacause that is where reparse point begins (obtained in Q10). 
 
 ![Pasted image 20261118145500.png](images/Pasted%20image%2020261118145500.png)
@@ -241,7 +251,8 @@ After searching for '0x5308' in HxD I got these results. Since windows stores th
 
 
 
-13. After recovering the file, provide the SHA-256 hash of the recovered financial report.
+**13. After recovering the file, provide the SHA-256 hash of the recovered financial report.**
+
 I used Dedup Explorer for this question. 
 
 ![Pasted image 20261118153423.png](images/Pasted%20image%2020261118153423.png)
@@ -256,6 +267,7 @@ In powershell I run 'Get-FileHash' and observed an answer.
 
 
 **14. The person who drafted this report must also be held legally accountable. What is their Full name?**
+
 For this one, I examined contents of the file but found nothing useful. So I decided to create zip file and inspect document metadata to find 'Author/Creator'. 
 
 ![Pasted image 20261118235201.png](images/Pasted%20image%2020261118235201.png)
@@ -273,6 +285,7 @@ In 'DocProps' folder 2 files can be seen. Core.xml is most likely one that will 
 
 
 **15. How much was the profit for the year overstated in the audited report compared to the actual one?**
+
 For this question I run Dedup Explorer and recover 'Audited Consolidated Financial Statements 2024.docx' like this.
 
 ![Pasted image 20261119000726.png](images/Pasted%20image%2020261119000726.png)
