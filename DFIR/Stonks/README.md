@@ -241,7 +241,7 @@ After searching for '0x5308' in HxD I got these results. Since windows stores th
 
 
 13. After recovering the file, provide the SHA-256 hash of the recovered financial report.
-I used Data Explorer for this question. 
+I used Dedup Explorer for this question. 
 
 ![Pasted image 20261118153423.png](images/Pasted%20image%2020261118153423.png)
 
@@ -255,7 +255,7 @@ In powershell I run 'Get-FileHash' and observed an answer.
 
 
 **14. The person who drafted this report must also be held legally accountable. What is their Full name?**
-For this one, I examined contents of the file but found nothing useful. So I decided to inspect document metadata to find 'Author/Creator'. 
+For this one, I examined contents of the file but found nothing useful. So I decided to create zip file and inspect document metadata to find 'Author/Creator'. 
 
 ![Pasted image 20261118235201.png](images/Pasted%20image%2020261118235201.png)
 
