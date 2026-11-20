@@ -88,7 +88,7 @@ In same "dedupConfig.02.xml" file there are 2 fields "excludeFileExtensions" and
 
 **5. How many files have been optimized by Data Deduplication?**
 
-In "System Volume Information/State" folder there is file called "dedupStatistics.xml". By examining it, answer can be found under "optimizedFileCount" field.
+In "System Volume Information/Dedup/ChunkStore/State" folder there is file called "dedupStatistics.xml". By examining it, answer can be found under "optimizedFileCount" field.
 
 ![Pasted image 20261113180232.png](images/Pasted%20image%2020261113180232.png)
 
