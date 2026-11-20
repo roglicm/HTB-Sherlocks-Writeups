@@ -226,8 +226,8 @@ Now I search for 'BA28' in opened raw $MFT in HxD to find stream-header.
 
 ![Pasted image 20261118150250.png](images/Pasted%20image%2020261118150250.png)
 
-After searching for 'BA28' offset I observed 'F0 97 3C BB 3C 2B 95 86'. 
-Now I imported .ccc file from 'chunkstore_stream' folder into HxD and seacrh for 'F0 97 3C BB 3C 2B 95 86' string in Hex-values.
+After searching for 'BA28' offset I observed 'F0 97 3C BB 3C 2B 95 86' string. 
+Now I imported .ccc file from 'chunkstore_stream' folder into HxD and search for 'F0 97 3C BB 3C 2B 95 86' string in Hex-values.
 
 ![Pasted image 20261118150859.png](images/Pasted%20image%2020261118150859.png)
 
