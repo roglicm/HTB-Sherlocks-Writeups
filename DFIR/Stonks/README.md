@@ -218,7 +218,7 @@ Now I need to locate stream-header identifier.
 
 ![Pasted image 20261118145827.png](images/Pasted%20image%2020261118145827.png)
 
-This means I need to add up start of reparse point and 0x78 which is relative offset in .ccc stream files. 
+This means I need to add up start of reparse point and 0x78 which is relative offset that marks the start of the 30-byte stream-header identifier in .ccc stream files. 
 
 ![Pasted image 20261118150023.png](images/Pasted%20image%2020261118150023.png)
 
