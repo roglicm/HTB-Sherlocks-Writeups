@@ -167,7 +167,7 @@ For this question I tried extracting raw $MFT (to import it in HxD) from disk pa
 
 ![Pasted image 20261118122056.png](images/Pasted%20image%2020261118122056.png)
 
-To answer this question, it is needed to add up this fields. Also MFT record header is 0x38 bytes which is standard offset inside NTFS MFT record. By knowing this I need to add up '0x38 + 0x60 + 0xC8 + 0x50'.
+To answer this question, it is needed to add up these fields. Also MFT record header is 0x38 bytes which is standard offset inside NTFS MFT record. By knowing this I need to add up '0x38 + 0x60 + 0xC8 + 0x50'.
 I will do with calculator in HEX mode. It is also possible to do it through powershell. 
 
 ![Pasted image 20261118122844.png](images/Pasted%20image%2020261118122844.png)
